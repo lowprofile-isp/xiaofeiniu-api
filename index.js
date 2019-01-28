@@ -4,8 +4,11 @@
 const PORT = 8090;
 const express = require('express');
 
+// 创建HTTP应用服务器
 // 启动主服务器
 var app = express();
 app.listen(PORT,()=>{
 	console.log('Server Listening'+PORT+'...');
+	console.log(new Date().toLocaleDateString());
+	console.log('API服务器启动成功...');
 })
