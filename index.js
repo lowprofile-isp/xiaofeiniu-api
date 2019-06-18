@@ -18,7 +18,7 @@ var app = express();
 // 使用中间件
 // 解决跨域
 app.use(cors({
-	origin:'http://127.0.0.1:5500'
+	origin:'*'
 }))
 // app.use(bodyParser.urlencoded({}))	//把application/x-www-form-urlencoded格式的请求主体数据
 app.use(bodyParser.json());//把application/JSON格式的请求主体数据解析出来放入req.body属性
