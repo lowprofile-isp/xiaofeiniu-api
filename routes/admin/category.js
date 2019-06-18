@@ -37,9 +37,9 @@ router.delete('/:cid',(req,res)=>{
 			if(err)throw err;
 			// 获取DELETE语句在数据库中影响的行数
 			if(result.affectedRows>0){
-				res.send({cid:200,msg:'1 category deleted'})
+				res.send({code:200,msg:'1 category deleted'})
 			}else{
-				res.send({cid:400,msg:'0 category deleted'})
+				res.send({code:400,msg:'0 category deleted'})
 			}
 		})
 	})
@@ -56,7 +56,7 @@ router.post('/',(req,res)=>{
 	pool.query('INSERT INTO xfn_category SET ?',data,(err,result)=>{
 		if(err)throw err;
 		if(result.affectedRows>0){
-			res.send({cid:200,msg:'1 category added'});
+			res.send({code:200,msg:'1 category added',cid:result.insertId});
 		}
 	})
 })
