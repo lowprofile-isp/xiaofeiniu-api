@@ -16,6 +16,16 @@ module.exports = router;
 router.get('/login/:aname/:apwd',(req,res)=>{
 	var aname = req.params.aname;
 	var apwd = req.params.apwd;
+	if (aname=='')
+	{
+		res.send({code:401,msg:'uname required'});
+		return;//阻止程序继续往后执行
+	}
+	if (apwd=='')
+	{
+		res.send({code:401,msg:'upwd required'});
+		return;
+	}
 	pool.query('SELECT aid FROM xfn_admin WHERE aname=? AND apwd=PASSWORD(?)',[aname,apwd],(err,result)=>{
 		if(err)throw err;
 		if(result.length>0){  //查询到一行数据，登录成功

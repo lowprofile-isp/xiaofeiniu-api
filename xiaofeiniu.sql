@@ -26,6 +26,28 @@ CREATE TABLE xfn_settings(
 INSERT INTO xfn_settings VALUES
 (NULL,'小肥牛','http://127.0.0.1:8090','http://127.0.0.1:8091','http://127.0.0.1:8092','京ICP备12003709号-3','Copyright © 北京达内金桥科技有限公司版权所有');
 
+/*桌台信息*/
+CREATE TABLE xfn_table(
+	tid			INT		PRIMARY KEY AUTO_INCREMENT,
+	tname 	VARCHAR(32),
+	type 		VARCHAR(16),
+	status 	BIGINT
+);
+INSERT INTO xfn_table VALUES
+(1, '金镶玉', '2人桌', 1),
+(2, '玉如意', '2人桌', 1),
+(3, '齐天寿', '6人桌', 3),
+(5, '福临门', '4人桌', 2),
+(6, '全家福', '6人桌', 3),
+(7, '展宏图', '2人桌', 1),
+(8, '万年长', '8人桌', 1),
+(9, '百事通', '4人桌', 3),
+(10, '满堂彩', '10人桌', 2),
+(11, '鸿运头', '8人桌', 1),
+(12, '福满堂', '12人桌', 1),
+(13, '高升阁', '4人桌', 3),
+(15, '乐逍遥', '2人桌',3);
+
 /*桌台预定信息*/
 CREATE TABLE xfn_reservation(
   rid INT PRIMARY KEY AUTO_INCREMENT,
@@ -59,27 +81,6 @@ INSERT INTO xfn_reservation VALUES
 (NULL, '当当', '13501234567', '1548311900000', '1549011300000', '13'),
 (NULL, '丫丫', '13501234568', '1548311910000', '1549011200000', '15');
 
-/*桌台信息*/
-CREATE TABLE xfn_table(
-	tid			INT		PRIMARY KEY AUTO_INCREMENT,
-	tname 	VARCHAR(32),
-	type 		VARCHAR(16),
-	status 	BIGINT
-);
-INSERT INTO xfn_table VALUES
-(1, '金镶玉', '2人桌', 1),
-(2, '玉如意', '2人桌', 1),
-(3, '齐天寿', '6人桌', 3),
-(5, '福临门', '4人桌', 2),
-(6, '全家福', '6人桌', 3),
-(7, '展宏图', '2人桌', 1),
-(8, '万年长', '8人桌', 1),
-(9, '百事通', '4人桌', 3),
-(10, '满堂彩', '10人桌', 2),
-(11, '鸿运头', '8人桌', 1),
-(12, '福满堂', '12人桌', 1),
-(13, '高升阁', '4人桌', 3),
-(15, '乐逍遥', '2人桌',3);
 
 /*菜品类别*/
 CREATE TABLE xfn_category(
@@ -105,7 +106,7 @@ CREATE TABLE xfn_dish(
 	FOREIGN KEY(categoryId) REFERENCES xfn_category(cid)
 );
 INSERT INTO xfn_dish VALUES
-(100000,'招牌虾滑','1.jpg',35,'精选湛江、北海区域出产的南美品种白虾虾仁，配以盐和淀粉等调料制作而成。虾肉含量越高，虾滑口感越纯正。相比纯虾肉，虾滑食用方便、入口爽滑鲜甜Q弹，海底捞独有的定制生产工艺，含肉量虾肉含量93%，出品装盘前手工摔打10次，是火锅中的经典食材。',1);
+(1,'招牌虾滑','1.jpg',35,'精选湛江、北海区域出产的南美品种白虾虾仁，配以盐和淀粉等调料制作而成。虾肉含量越高，虾滑口感越纯正。相比纯虾肉，虾滑食用方便、入口爽滑鲜甜Q弹，海底捞独有的定制生产工艺，含肉量虾肉含量93%，出品装盘前手工摔打10次，是火锅中的经典食材。',1);
 
 
 /*订单*/
@@ -118,7 +119,7 @@ CREATE TABLE xfn_order(
 	FOREIGN KEY(tableId) REFERENCES xfn_table(tid)
 );
 INSERT INTO xfn_order VALUES
-(100000, '1547800000000', '1547814918000', '2', '1');
+(1, '1547800000000', '1547814918000', '2', '1');
 
 /*订单详情*/
 CREATE TABLE xfn_order_detail(
@@ -131,4 +132,4 @@ CREATE TABLE xfn_order_detail(
 	FOREIGN KEY(orderId) REFERENCES xfn_order(oid)
 );
 INSERT INTO xfn_order_detail VALUES
-(NULL, '50', '2', '丁丁', '100000');
+(NULL, '1', '2', '丁丁', '1');
