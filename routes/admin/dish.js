@@ -92,6 +92,15 @@ router.post('/',(req,res)=>{
  * 	{code:200,msg:'dish deleted succ'}
  * 	{code:400,msg:'dish not exists'}
  */
+router.delete('/',(req,res)=>{
+	var data = req.body;
+	pool.query('DELETE FROM xfn_dish WHERE did=? OR title=?',[$did,$title],(err,result)=>{
+		if(err)throw err;
+		if(result.affectedRows>0){
+			res.send({code:200,msg:'dish deleted succ',dishId:result.insertId})
+		}
+	})
+})
 
 /**
  * PUT /admin/dish
