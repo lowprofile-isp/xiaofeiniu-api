@@ -10,8 +10,7 @@ CREATE TABLE xfn_admin(
 	apwd		VARCHAR(64)
 );
 INSERT INTO xfn_admin VALUES
-(NULL,'admin',PASSWORD('123456')),
-(NULL,'bos',PASSWORD('999999'));
+(NULL,'admin',PASSWORD('123456'));
 
 /*全局设置表*/
 CREATE TABLE xfn_settings(

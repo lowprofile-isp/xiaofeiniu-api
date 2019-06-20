@@ -48,7 +48,7 @@ router.get('/login/:aname/:apwd',(req,res)=>{
 router.patch('/',(req,res)=>{
 	var data = req.body;
 	// 首先根据aname/oldPwd查询该用户是否存在
-	pool.query('SELECT aid FROM xfn_admin WHERE aname=? AND apwd=PASSWORD(?)',[data.aname,data.oldPwd],(err,result)=>{
+	pool.query('SELECT aid,apwd FROM xfn_admin WHERE aname=? AND apwd=PASSWORD(?)',[data.aname,data.oldPwd],(err,result)=>{
 		if(err)throw err;
 		if(result.length==0){
 			res.send({code:400,msg:'password err'})
