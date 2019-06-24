@@ -55,7 +55,7 @@ CREATE TABLE xfn_reservation(
   contactTime BIGINT,
   dinnerTime BIGINT,
   tableId INT,
-  FOREIGN KEY(tableId) REFERENCES xfn_table(tid)
+  FOREIGN KEY(tableId) REFERENCES xfn_table(tid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 INSERT INTO xfn_reservation VALUES
 (NULL, '丁丁', '13501234561', '1548311700000', '1549011000000', '1'),
@@ -102,7 +102,7 @@ CREATE TABLE xfn_dish(
 	price 		DECIMAL(6,2),
 	detail		VARCHAR(128),
 	categoryId	INT,
-	FOREIGN KEY(categoryId) REFERENCES xfn_category(cid)
+	FOREIGN KEY(categoryId) REFERENCES xfn_category(cid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 INSERT INTO xfn_dish VALUES
 (1,'招牌虾滑','1.jpg',35,'精选湛江、北海区域出产的南美品种白虾虾仁，配以盐和淀粉等调料制作而成。虾肉含量越高，虾滑口感越纯正。相比纯虾肉，虾滑食用方便、入口爽滑鲜甜Q弹，海底捞独有的定制生产工艺，含肉量虾肉含量93%，出品装盘前手工摔打10次，是火锅中的经典食材。',1);
@@ -115,7 +115,7 @@ CREATE TABLE xfn_order(
 	endTime		BIGINT,
 	customerCount 	INT,
 	tableId		INT,
-	FOREIGN KEY(tableId) REFERENCES xfn_table(tid)
+	FOREIGN KEY(tableId) REFERENCES xfn_table(tid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 INSERT INTO xfn_order VALUES
 (1, '1547800000000', '1547814918000', '2', '1');
@@ -127,8 +127,8 @@ CREATE TABLE xfn_order_detail(
 	dishCount	INT,			/*份数*/
 	customerName 	VARCHAR(32),	/*顾客名称*/
 	orderId		INT,			/*订单编号*/
-	FOREIGN KEY(dishId) REFERENCES xfn_dish(did),
-	FOREIGN KEY(orderId) REFERENCES xfn_order(oid)
+	FOREIGN KEY(dishId) REFERENCES xfn_dish(did) ON DELETE CASCADE ON UPDATE CASCADE, 
+	FOREIGN KEY(orderId) REFERENCES xfn_order(oid) ON DELETE CASCADE ON UPDATE CASCADE
 );
 INSERT INTO xfn_order_detail VALUES
 (NULL, '1', '2', '丁丁', '1');

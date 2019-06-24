@@ -92,12 +92,15 @@ router.post('/',(req,res)=>{
  * 	{code:200,msg:'dish deleted succ'}
  * 	{code:400,msg:'dish not exists'}
  */
-router.delete('/',(req,res)=>{
-	var data = req.body;
-	pool.query('DELETE FROM xfn_dish WHERE did=? OR title=?',[$did,$title],(err,result)=>{
+router.delete('/:dishInfo',(req,res)=>{
+	var $did = req.params.dishInfo;
+	console.log($did)
+	pool.query('DELETE FROM xfn_dish WHERE did=? OR title=?',[$did,$did],(err,result)=>{
 		if(err)throw err;
 		if(result.affectedRows>0){
 			res.send({code:200,msg:'dish deleted succ',dishId:result.insertId})
+		}else{
+			res.send({code:400,msg:'error'})
 		}
 	})
 })
@@ -110,4 +113,19 @@ router.delete('/',(req,res)=>{
  * 	{code:200,msg:'dish updated succ'}
  * 	{code:400,msg:'dish not exists'}
  */
+router.put('/',(req,res)=>{
+
+})
+
+router.get('/dishDetail/:dishInfo',(req,res)=>{
+	var $info = req.params.dishInfo;
+	pool.query('SELECT * FROM xfn_dish WHERE did=? OR title=?',[$info,$info],(err,result)=>{
+		if(err)throw err;
+		if(result.length>0){
+			res.send({code:200,msg:'dish select succ'})
+		}else{
+			res.send({code:400,msg:'dish select error'})
+		}
+	})
+})
 
