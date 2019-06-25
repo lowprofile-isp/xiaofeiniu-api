@@ -113,8 +113,19 @@ router.delete('/:dishInfo',(req,res)=>{
  * 	{code:200,msg:'dish updated succ'}
  * 	{code:400,msg:'dish not exists'}
  */
-router.put('/',(req,res)=>{
-
+router.put('/:did',(req,res)=>{
+	var $did = req.params.did;
+	pool.query('UPDATE xfn_dish SET ? WHERE did=?',[req.body,$did],(err,result)=>{
+		if(err)throw err;
+		console.log(result)
+		if(result.changedRows>0){
+			res.send({code:200,msg:'settings updated succ'});
+		}else if(result.changedRows==0){
+			res.send({code:202,msg:'settings updated null'});
+		}else{
+			res.send({code:400,msg:'settings updated error'})
+		}
+	})
 })
 
 router.get('/dishDetail/:dishInfo',(req,res)=>{
@@ -122,7 +133,7 @@ router.get('/dishDetail/:dishInfo',(req,res)=>{
 	pool.query('SELECT * FROM xfn_dish WHERE did=? OR title=?',[$info,$info],(err,result)=>{
 		if(err)throw err;
 		if(result.length>0){
-			res.send({code:200,msg:'dish select succ'})
+			res.send({code:200,infos:result[0]})
 		}else{
 			res.send({code:400,msg:'dish select error'})
 		}
