@@ -40,7 +40,8 @@ router.get('/order/:tid', (req, res) => {
 	var $tid = req.params.tid;
 	var outputs = {
 		order: {},
-		order_detail: []
+		order_detail: [],
+		order_detail_dish_did:[]
 	}
 	pool.query('SELECT * FROM xfn_order WHERE tableId=?', $tid, (err, result) => {
 		if (err) throw err;
@@ -51,6 +52,9 @@ router.get('/order/:tid', (req, res) => {
 				pool.query('SELECT * FROM xfn_order_detail WHERE orderId=?', $oid, (err, result) => {
 					if (err) throw err;
 					outputs.order_detail = result;
+					for(let i=0;i<result.length;i++){
+						outputs.order_detail_dish_did.push(outputs.order_detail[i].did);
+					}
 					res.send(outputs);
 				})
 			}
