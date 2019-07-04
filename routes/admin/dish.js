@@ -94,7 +94,6 @@ router.post('/',(req,res)=>{
  */
 router.delete('/:dishInfo',(req,res)=>{
 	var $did = req.params.dishInfo;
-	console.log($did)
 	pool.query('DELETE FROM xfn_dish WHERE did=? OR title=?',[$did,$did],(err,result)=>{
 		if(err)throw err;
 		if(result.affectedRows>0){
@@ -117,7 +116,6 @@ router.put('/:did',(req,res)=>{
 	var $did = req.params.did;
 	pool.query('UPDATE xfn_dish SET ? WHERE did=?',[req.body,$did],(err,result)=>{
 		if(err)throw err;
-		console.log(result)
 		if(result.changedRows>0){
 			res.send({code:200,msg:'settings updated succ'});
 		}else if(result.changedRows==0){
@@ -138,5 +136,18 @@ router.get('/dishDetail/:dishInfo',(req,res)=>{
 			res.send({code:400,msg:'dish select error'})
 		}
 	})
+})
+
+router.post('/orderDetailDish',(req,res)=>{
+	var $dishId = req.body.dishId;
+	console.log($dishId)
+	// pool.query('SELECT * FROM xfn_dish WHERE did IN ()',[$info,$info],(err,result)=>{
+	// 	if(err)throw err;
+	// 	if(result.length>0){
+	// 		res.send({code:200,infos:result[0]})
+	// 	}else{
+	// 		res.send({code:400,msg:'dish select error'})
+	// 	}
+	// })
 })
 
