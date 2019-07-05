@@ -140,14 +140,15 @@ router.get('/dishDetail/:dishInfo',(req,res)=>{
 
 router.post('/orderDetailDish',(req,res)=>{
 	var $dishId = req.body.dishId;
-	console.log($dishId)
-	// pool.query('SELECT * FROM xfn_dish WHERE did IN ()',[$info,$info],(err,result)=>{
-	// 	if(err)throw err;
-	// 	if(result.length>0){
-	// 		res.send({code:200,infos:result[0]})
-	// 	}else{
-	// 		res.send({code:400,msg:'dish select error'})
-	// 	}
-	// })
+	var $newDishId = $dishId.join(',');
+	;
+	pool.query('SELECT * FROM `xfn_dish` WHERE FIND_IN_SET(did,?)',$newDishId,(err,result)=>{
+		if(err)throw err;
+		if(result.length>0){
+			res.send({code:200,infos:result})
+		}else{
+			res.send({code:400,msg:'dish select error'})
+		}
+	})
 })
 

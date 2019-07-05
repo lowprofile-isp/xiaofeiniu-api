@@ -136,3 +136,41 @@ router.put('/qitainfo/:tid', (req, res) => {
 		res.send({code:200,msg:'qitainfo table succ'})
 	})
 })
+/**
+ * post /admin/table/
+ * 请求参数：{tid:null,tname:'xx',type:xx,status:'xx'}
+ * 输出数据：
+ * 	{code:200,msg:'table add succ'}
+ * 	{code:400,msg:'table add error'}
+ */
+// 添加桌台
+router.post('/',(req,res)=>{
+	var $table = req.body;
+	pool.query('INSERT INTO xfn_table SET ?',$table,(err,result)=>{
+		if(err)throw err;
+		if(result.affectedRows>0){
+			res.send({code:200,msg:'table add succ'})
+		}else{
+			res.send({code:400,msg:'table add error'})
+		}
+	})
+})
+
+/**
+ * DELETE /admin/table/:tableInfo
+ * 根据指定的桌台编号或者名字删除该桌台
+ * 输出数据：
+ * 	{code:200,msg:'table deleted succ'}
+ * 	{code:400,msg:'table not exists'}
+ */
+router.delete('/:tableInfo',(req,res)=>{
+	var $tid = req.params.tableInfo;
+	pool.query('DELETE FROM xfn_table WHERE did=? OR title=?',[$tid,$tid],(err,result)=>{
+		if(err)throw err;
+		if(result.affectedRows>0){
+			res.send({code:200,msg:'table deleted succ'})
+		}else{
+			res.send({code:400,msg:'table deleted error'})
+		}
+	})
+})
