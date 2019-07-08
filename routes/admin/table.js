@@ -163,9 +163,9 @@ router.post('/',(req,res)=>{
  * 	{code:200,msg:'table deleted succ'}
  * 	{code:400,msg:'table not exists'}
  */
-router.delete('/:tableInfo',(req,res)=>{
+router.delete('/delTab/:tableInfo',(req,res)=>{
 	var $tid = req.params.tableInfo;
-	pool.query('DELETE FROM xfn_table WHERE did=? OR title=?',[$tid,$tid],(err,result)=>{
+	pool.query('DELETE FROM xfn_table WHERE tid=? OR tname=?',[$tid,$tid],(err,result)=>{
 		if(err)throw err;
 		if(result.affectedRows>0){
 			res.send({code:200,msg:'table deleted succ'})

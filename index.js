@@ -1,8 +1,8 @@
 /**
  * 小肥牛扫码点餐项目API子系统
  */
-// const PORT = 8090;
-const PORT = 5050;
+const PORT = 8090;
+// const PORT = 5050;
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -19,7 +19,7 @@ var app = express();
 // 使用中间件
 // 解决跨域
 app.use(cors({
-	origin:'http://xfnadmins.applinzi.com'
+	origin:'*'
 }))
 // app.use(bodyParser.urlencoded({}))	//把application/x-www-form-urlencoded格式的请求主体数据
 app.use(bodyParser.json());//把application/JSON格式的请求主体数据解析出来放入req.body属性
